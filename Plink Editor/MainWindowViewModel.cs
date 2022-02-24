@@ -18,7 +18,7 @@ namespace Plink_Editor
         static MainWindowViewModel()
         {
             SettingsDir = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Plink"));
-            SettingsFile = new FileInfo(Path.Combine(SettingsDir.FullName, "settings.json"));
+            SettingsFile = new FileInfo(Path.Combine(SettingsDir.FullName, "rules.json"));
             RegKeyStartup = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true) ?? throw new InvalidOperationException();
             EngineFileName = "Plink.exe";
             RegValueNameStartup = "Plink";
@@ -74,7 +74,10 @@ namespace Plink_Editor
         public void Save()
         {
             SettingsDir.Create();
-            File.WriteAllText(SettingsFile.FullName, JsonSerializer.Serialize(Rules.Select(r => r.Model)));
+            File.WriteAllText(SettingsFile.FullName, JsonSerializer.Serialize(Rules.Select(r => r.Model), new JsonSerializerOptions
+            {
+                WriteIndented = true
+            }));
         }
     }
 }
