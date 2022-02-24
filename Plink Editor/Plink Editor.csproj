@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="FindProcess_16x.png" />
     <None Remove="OpenAction_16x.png" />
+    <None Remove="OpenFolder_16x.png" />
     <None Remove="OpenProcess_16x.png" />
     <None Remove="Settings_16x.png" />
   </ItemGroup>
@@ -26,6 +27,7 @@
   <ItemGroup>
     <Resource Include="FindProcess_16x.png" />
     <Resource Include="OpenAction_16x.png" />
+    <Resource Include="OpenFolder_16x.png" />
     <Resource Include="OpenProcess_16x.png" />
     <Resource Include="Settings_16x.png" />
   </ItemGroup>

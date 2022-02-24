@@ -5,15 +5,30 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Plink_Editor
 {
+    [Serializable]
+    internal record RuleModel
+    {
+        [JsonPropertyName("auto-close")]
+        public bool AutoClose { get; init; } = false;
+        [JsonPropertyName("process-filename")]
+        public string ProcessName { get; init; } = "";
+        [JsonPropertyName("action-arguments")]
+        public string TriggerArguments { get; init; } = "";
+        [JsonPropertyName("action-working-directory")]
+        public string TriggerDirectory { get; init; } = "";
+        [JsonPropertyName("action-filename")]
+        public string TriggerName { get; init; } = "";
+    }
+
     internal class RuleViewModel : ReactiveObject
     {
         public RuleViewModel()
         {
-            Id = Guid.NewGuid();
             AutoClose = false;
             ProcessName = "";
             TriggerArguments = "";
@@ -21,9 +36,17 @@ namespace Plink_Editor
             TriggerName = "";
         }
 
-        public RuleViewModel(Guid id, string processName, string triggerArguments, string triggerDirectory, string triggerPath, bool autoClose) : this()
+        public RuleViewModel(RuleModel copy) : this()
         {
-            Id = id;
+            AutoClose = copy.AutoClose;
+            ProcessName = copy.ProcessName;
+            TriggerArguments = copy.TriggerArguments;
+            TriggerDirectory = copy.TriggerDirectory;
+            TriggerName = copy.TriggerName;
+        }
+
+        public RuleViewModel(string processName, string triggerArguments, string triggerDirectory, string triggerPath, bool autoClose) : this()
+        {
             ProcessName = processName;
             TriggerArguments = triggerArguments;
             TriggerDirectory = triggerDirectory;
@@ -34,7 +57,14 @@ namespace Plink_Editor
         [Reactive]
         public bool AutoClose { get; set; }
 
-        public Guid Id { get; }
+        public RuleModel Model => new()
+        {
+            AutoClose = AutoClose,
+            ProcessName = ProcessName,
+            TriggerArguments = TriggerArguments,
+            TriggerDirectory = TriggerDirectory,
+            TriggerName = TriggerName
+        };
 
         [Reactive]
         public string ProcessName { get; set; }

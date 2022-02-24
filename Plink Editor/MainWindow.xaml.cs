@@ -34,6 +34,13 @@ namespace Plink_Editor
 
         private void PickExecutableMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            var source = (FrameworkElement)sender;
+            var rule = (RuleViewModel)source.DataContext;
+            var dialog = new ProcessSelector { Owner = this };
+            if (dialog.ShowDialog() is true && dialog.Result is not null)
+            {
+                rule.ProcessName = dialog.Result;
+            }
         }
 
         private void SetActionExecutableMenuItem_Click(object sender, RoutedEventArgs e)
@@ -67,6 +74,12 @@ namespace Plink_Editor
             {
                 rule.ProcessName = Path.GetFileName(dialog.FileName);
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            var viewmodel = (MainWindowViewModel)DataContext;
+            viewmodel.Save();
         }
     }
 }

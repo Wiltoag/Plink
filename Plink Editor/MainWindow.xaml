@@ -9,7 +9,8 @@
         Height="450"
         Width="800"
         WindowStartupLocation="CenterScreen"
-        UseLayoutRounding="True">
+        UseLayoutRounding="True"
+        Closed="Window_Closed">
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
@@ -101,6 +102,12 @@
         </Style>
     </Window.Resources>
     <DockPanel>
+        <CheckBox
+            Margin="3"
+            HorizontalAlignment="Right"
+            DockPanel.Dock="Top"
+            Content="Run on startup"
+            IsChecked="{Binding RunOnStartup}" />
         <DataGrid
             HeadersVisibility="All"
             CanUserResizeRows="False"

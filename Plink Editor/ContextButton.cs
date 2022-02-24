@@ -9,13 +9,13 @@ using System.Windows.Controls.Primitives;
 
 namespace Plink_Editor
 {
-    internal static class ContextButton
+    internal class ContextButton : UIElement
     {
         public static readonly DependencyProperty MenuProperty = DependencyProperty.RegisterAttached("Menu", typeof(ContextMenu), typeof(ContextButton), new PropertyMetadata(null, MenuChanged));
 
         public static ContextMenu? GetMenu(DependencyObject obj) => obj.GetValue(MenuProperty) as ContextMenu;
 
-        public static void SetMenu(DependencyObject obj, object? value) => obj.SetValue(MenuProperty, value);
+        public static void SetMenu(DependencyObject obj, ContextMenu? value) => obj.SetValue(MenuProperty, value);
 
         private static void Button_Click(object sender, RoutedEventArgs e)
         {
