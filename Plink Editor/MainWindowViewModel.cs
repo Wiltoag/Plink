@@ -62,6 +62,7 @@ namespace Plink_Editor
 
         public void Load()
         {
+            SettingsFile.Refresh();
             if (SettingsFile.Exists)
             {
                 Rules.Clear();

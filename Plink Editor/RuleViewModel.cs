@@ -13,6 +13,8 @@ namespace Plink_Editor
     [Serializable]
     internal record RuleModel
     {
+        [JsonPropertyName("id")]
+        public Guid Id { get; init; } = Guid.Empty;
         [JsonPropertyName("auto-close")]
         public bool AutoClose { get; init; } = false;
         [JsonPropertyName("process-filename")]
@@ -29,6 +31,7 @@ namespace Plink_Editor
     {
         public RuleViewModel()
         {
+            Id = Guid.NewGuid();
             AutoClose = false;
             ProcessName = "";
             TriggerArguments = "";
@@ -38,6 +41,7 @@ namespace Plink_Editor
 
         public RuleViewModel(RuleModel copy) : this()
         {
+            Id = copy.Id;
             AutoClose = copy.AutoClose;
             ProcessName = copy.ProcessName;
             TriggerArguments = copy.TriggerArguments;
@@ -57,8 +61,11 @@ namespace Plink_Editor
         [Reactive]
         public bool AutoClose { get; set; }
 
+        public Guid Id { get; }
+
         public RuleModel Model => new()
         {
+            Id = Id,
             AutoClose = AutoClose,
             ProcessName = ProcessName,
             TriggerArguments = TriggerArguments,
