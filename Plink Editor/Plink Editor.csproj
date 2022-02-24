@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Plink_Editor</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="FindProcess_16x.png" />
+    <None Remove="OpenAction_16x.png" />
+    <None Remove="OpenProcess_16x.png" />
+    <None Remove="Settings_16x.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DynamicData" Version="7.5.4" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
+    <PackageReference Include="ReactiveUI" Version="17.1.50" />
+    <PackageReference Include="ReactiveUI.Fody" Version="17.1.50" />
+    <PackageReference Include="ReactiveUI.WPF" Version="17.1.50" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="FindProcess_16x.png" />
+    <Resource Include="OpenAction_16x.png" />
+    <Resource Include="OpenProcess_16x.png" />
+    <Resource Include="Settings_16x.png" />
+  </ItemGroup>
+
+</Project>

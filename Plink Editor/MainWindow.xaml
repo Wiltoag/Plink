@@ -1,0 +1,184 @@
+﻿<Window x:Class="Plink_Editor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Plink_Editor"
+        mc:Ignorable="d"
+        Title="Plink"
+        Height="450"
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        UseLayoutRounding="True">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <local:IsTypeConverter
+            x:Key="IsTypeConverter" />
+        <CollectionViewSource
+            x:Key="rules"
+            Source="{Binding Rules}" />
+        <Style
+            TargetType="Button"
+            x:Key="imageButton">
+            <Setter
+                Property="Template">
+                <Setter.Value>
+                    <ControlTemplate
+                        TargetType="Button">
+                        <Border
+                            Background="#01ffffff"
+                            Padding="{TemplateBinding Padding}"
+                            x:Name="border">
+                            <ContentPresenter
+                                Content="{TemplateBinding Content}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger
+                                Property="IsMouseOver"
+                                Value="True">
+                                <Setter
+                                    TargetName="border"
+                                    Property="Background"
+                                    Value="#2000" />
+                            </Trigger>
+                            <Trigger
+                                Property="IsPressed"
+                                Value="True">
+                                <Setter
+                                    TargetName="border"
+                                    Property="Background"
+                                    Value="#4000" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ContextMenu
+            x:Key="ruleHelperMenu">
+            <MenuItem
+                Header="Set process executable"
+                Click="SetExecutableMenuItem_Click">
+                <MenuItem.Icon>
+                    <Image
+                        Stretch="None"
+                        Source="/OpenProcess_16x.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem
+                Header="Pick process"
+                Click="PickExecutableMenuItem_Click">
+                <MenuItem.Icon>
+                    <Image
+                        Stretch="None"
+                        Source="/FindProcess_16x.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem
+                Header="Set action executable"
+                Click="SetActionExecutableMenuItem_Click">
+                <MenuItem.Icon>
+                    <Image
+                        Stretch="None"
+                        Source="/OpenAction_16x.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <Style
+            x:Key="disableImage"
+            TargetType="Image">
+            <Style.Triggers>
+                <Trigger
+                    Property="IsEnabled"
+                    Value="False">
+                    <Setter
+                        Property="Opacity"
+                        Value=".35" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <DataGrid
+            HeadersVisibility="All"
+            CanUserResizeRows="False"
+            CanUserAddRows="True"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding Source={StaticResource rules}}">
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <Button
+                        local:ContextButton.Menu="{StaticResource ruleHelperMenu}"
+                        DataContext="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=DataContext}"
+                        Padding="4">
+                        <Button.Style>
+                            <Style
+                                TargetType="Button"
+                                BasedOn="{StaticResource imageButton}">
+                                <Setter
+                                    Property="IsEnabled"
+                                    Value="False" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Converter={StaticResource IsTypeConverter}, ConverterParameter={x:Type local:RuleViewModel}}"
+                                        Value="True">
+                                        <Setter
+                                            Property="IsEnabled"
+                                            Value="True" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Image
+                            Stretch="None"
+                            Style="{StaticResource disableImage}"
+                            Source="/Settings_16x.png" />
+                    </Button>
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
+            <DataGrid.RowStyle>
+                <Style
+                    TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Converter={StaticResource IsTypeConverter}, ConverterParameter={x:Type local:RuleViewModel}}"
+                            Value="True">
+                            <Setter
+                        Property="ContextMenu"
+                        Value="{StaticResource ruleHelperMenu}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="Process"
+                    MaxWidth="250"
+                    MinWidth="50"
+                    Binding="{Binding ProcessName}" />
+                <DataGridTextColumn
+                    Header="Action directory"
+                    MaxWidth="350"
+                    MinWidth="50"
+                    Binding="{Binding TriggerDirectory}" />
+                <DataGridTextColumn
+                    Header="Action file"
+                    MaxWidth="250"
+                    MinWidth="50"
+                    Binding="{Binding TriggerName}" />
+                <DataGridTextColumn
+                    Header="Action arguments"
+                    MaxWidth="250"
+                    MinWidth="50"
+                    Binding="{Binding TriggerArguments}" />
+                <DataGridCheckBoxColumn
+                    Header="Auto close action"
+                    MaxWidth="250"
+                    MinWidth="50"
+                    Binding="{Binding AutoClose}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plink Editor", "Plink Editor\Plink Editor.csproj", "{0FED3CD4-AFA3-41BA-B3C7-1505051A1D37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FED3CD4-AFA3-41BA-B3C7-1505051A1D37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FED3CD4-AFA3-41BA-B3C7-1505051A1D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FED3CD4-AFA3-41BA-B3C7-1505051A1D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FED3CD4-AFA3-41BA-B3C7-1505051A1D37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {814B8552-53FD-4DF4-932F-2B6AB3B3BEAF}
+	EndGlobalSection
+EndGlobal
